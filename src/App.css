@@ -30,6 +30,8 @@
 }
 .text_container {
   flex-grow: 1;
+  justify-content: center;
+  align-items: center;
 }
 .text_container h3 {
   text-align: left;
