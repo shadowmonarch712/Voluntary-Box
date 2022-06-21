@@ -8,6 +8,7 @@ import AuthProvider from './Context/Auth';
 import PrivateRoute from './Components/PrivateRoute';
 import Profile from './Pages/Profile';
 import AddItem from './Components/AddItem';
+import ItemSummary from './Components/ItemSummary';
 
 function App() {
   return (
@@ -18,8 +19,10 @@ function App() {
           <PrivateRoute exact path='/' component={Home} />
           <PrivateRoute exact path='/Profile' component={Profile} />
           <PrivateRoute exact path='/AddItem' component={AddItem} />
+          <PrivateRoute exact path='/ItemSummary' component={ItemSummary} />
           <Route exact path='/Register' component={Register} />
           <Route exact path='/Login' component={Login} />
+
         </Switch>
       </BrowserRouter>
     </AuthProvider>

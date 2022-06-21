@@ -13,10 +13,22 @@ const AddItem = () => {
   const [data, setData] = useState({
     itemName: '',
     itemDes: '',
+    name: '',
+    email: '',
     error: '',
     loading: 'false'
   });
 
+  const [name, setName] = useState([]);
+
+    useEffect(() => {
+        getDoc(doc(db, "users", auth.currentUser.uid)).then((docSnap) => {
+            if (docSnap.exists) {
+                setName(docSnap.data());
+            }
+        });
+    }, []);
+  
   useEffect(() => {
     getDoc(doc(db, "itemInfo", `${auth.currentUser.uid} - ${itemName}`)).then((docSnap) => {
       if (docSnap.exists) {
@@ -64,11 +76,15 @@ const AddItem = () => {
         uid: auth.currentUser.uid,
         itemName,
         itemDes,
+        name: name.name,
+        email: name.email,
         createdAt: Timestamp.fromDate(new Date()),
       });
       setData({
         itemName: '',
         itemDes: '',
+        name: '',
+        email: '',
         error: null,
         loading: 'false'
       });

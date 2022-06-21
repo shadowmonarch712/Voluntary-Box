@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../firebase';
-import { updateDoc, doc} from 'firebase/firestore';
+import { updateDoc, doc } from 'firebase/firestore';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
         setData({ ...data, error: null, loading: false });
         if (!email || !password) {
             setData({ ...data, error: 'All fields are required' });
-        }try {
+        } try {
             const result = await signInWithEmailAndPassword(auth, email, password);
             await updateDoc(doc(db, 'users', result.user.uid), {
                 isOnline: true
@@ -40,7 +40,7 @@ const Login = () => {
         }
     }
     return <div>
-        <h1>Create An Account</h1>
+        {/* <h1>Create An Account</h1>
         <form>
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -52,7 +52,26 @@ const Login = () => {
             </div>
             {error ? <p>{error}</p> : null}
             <button type="submit" className="btn btn-primary" disabled={loading===true ? true : false} onClick={handleSubmit}>{loading===true? 'Logging in...' : 'Login'}</button>
-        </form>
+        </form> */}
+        <section className='login'>
+            <div className="loginContainer">
+                <label>Username</label>
+                <input type="email" className="form-control" id="email" value={email} onChange={handleChange}/>
+                <p className="errorMsg">
+                    {error}
+                </p>
+
+                <label >Password</label>
+                <input type="password" className="form-control" id="password" value={password} onChange={handleChange}/>
+                <p className="errorMsg">
+                    {error}
+                </p>
+                <div className="btnContainer">
+                <button type="submit" disabled={loading===true ? true : false} onClick={handleSubmit}>{loading===true? 'Logging in...' : 'Login'}</button>
+                    <p>Don't have an Account? <span>Sign up</span></p>
+                </div>
+            </div>
+        </section>
     </div>;
 };
 
